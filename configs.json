@@ -1,0 +1,146 @@
+{
+   "task": "sr",  
+    "method": "srcnn",  // Options: "fsrcnn", "edsr", "vdr", "espcn", "mrunet"
+    "mode": "train",   // Options: "train" (train+val), "eval"
+    "dataset_type": "sen2_60_mod_500",
+    "distributed": false,
+    "num_workers": 6,
+    "seed": 999,
+    "gpu_ids": [
+        1
+    ],
+    "train": {
+        "n_epochs": 150,
+        "rep_times": 1,     // num times to replicate the experiment
+        "val_freq": 1,
+        "save_checkpoint_freq": -1, // num of epochs to save checkpoints after. -1 to save only best. If list of int ([int1, int2]) it will sample every `int1` epochs until epoch `int2`. After that will sample every epoch.
+        "print_freq": 5,         // num of iterations to refresh progress bar after
+        "loss_function": "cross_entropy",  // Options: "cross_entropy", "focal", "CL", BCL", "srcdnet_loss", "MAE", "MSE", "dice", "dice+ce".
+        "weighted_loss": false
+    },
+    "wandb": {
+        "wandb_project": "BAM",
+        "wandb_entity": "deepcube",
+        "wandb_id": "null",
+        "resume_wandb": false,
+        "activate": false
+    },
+    "paths": {
+        "dataset": "/home/itselka/nvme1/itselka/dataset",
+        "results": "/home/itselka/nvme1/itselka/results", 
+        "load_state": null
+    },
+    "datasets": {
+        "train": "/home/itselka/nvme1/itselka/dataset/sen2_60_mod_500/train.pkl",
+        "val": "/home/itselka/nvme1/itselka/dataset/sen2_60_mod_500/val.pkl",
+        "test": "/home/itselka/nvme1/itselka/dataset/sen2_60_mod_500/test.pkl",
+        "scale_input_sen2": "clamp_normalize_10000",  // Options: "normalize", "min-max", "clamp_scale_<value>", "clamp_<value>", "clamp_normalize_<value>", a list of custom [min, max] values, null. <value> is an integer depicting the clamping threshold
+        "scale_input_mod": "clamp_normalize_16000",   // Options: "normalize", "min-max", "clamp_scale_<value>", "clamp_<value>", "clamp_normalize_<value>", a list of custom [min, max] values, null. <value> is an integer depicting the clamping threshold
+        "img_size": 256,
+        "batch_size": 8,
+        "original_modis_size": false,     // If true, then MODIS images are downsampled to their original size during loading
+        "num_workers": 4,
+        "use_shuffle": true,
+        "train_data_len": -1,   // -1 represents all data used in train
+        "val_data_len": -1,
+        "nan_value": 0,    // the value to replace NaNs with
+        "augmentation": false,
+        "select_bands": "same",   // Options: "all" for all bands, "same" to keep the same wavelengths for MODIS/Sen-2
+        "selected_bands": {  
+            "sen2": {
+                "B02": -1,
+                "B03": -1,
+                "B04": -1,
+                "B05": -1,
+                "B06": -1,
+                "B07": -1,
+                "B11": -1,
+                "B12": -1,
+                "B8A": -1
+            },
+            "mod": {
+                "B01": -1,
+                "B02": -1,
+                "B03": -1,
+                "B04": -1,
+                "B05": -1,
+                "B06": -1,
+                "B07": -1
+            }
+        },
+        "mod_bands": {
+            "250": {
+                "B01": 0,
+                "B02": 1
+            },
+            "500": {
+                "B01": 0,
+                "B02": 1,
+                "B03": 2,
+                "B04": 3,
+                "B05": 4,
+                "B06": 5,
+                "B07": 6
+            }
+        },
+        "sen2_bands": {
+            "10": {
+                "B02": 0,
+                "B03": 1,
+                "B04": 2,
+                "B08": 3
+            },
+            "20": {
+                "B02": 0,
+                "B03": 1,
+                "B04": 2,
+                "B05": 3,
+                "B06": 4,
+                "B07": 5,
+                "B11": 6,
+                "B12": 7,
+                "B8A": 8
+            },
+            "60": {
+                "B01": 0,
+                "B02": 1,
+                "B03": 2,
+                "B04": 3,
+                "B05": 4,
+                "B06": 5,
+                "B07": 6,
+                "B09": 7,
+                "B11": 8,
+                "B12": 9,
+                "B8A": 10
+            }
+        },
+        "sen2_mod_500_band_mapping": {
+            "B02": "B03",  // Blue
+            "B03": "B04",  // Green
+            "B04": "B01",  // Red
+            "B08": "B02",  // NIR
+            "B12": "B07",  // SWIR
+            "B8A": "B02"  // NIR
+        },
+        "sen2_mean": {
+            "10": [],
+            "20": [63.8612, 73.0030, 78.0166, 100.7361, 137.4804, 151.7485, 144.9945, 105.9401, 162.0981],
+            "60": [353.2076, 403.5439, 526.2053, 548.9030, 788.2869, 1270.0687, 1443.4496, 1594.2333, 1319.8888, 887.8551, 1570.0552]
+        },
+        "sen2_std": {
+            "10": [],
+            "20": [288.5572, 318.7534, 354.1387, 430.6897, 573.3617, 634.2242, 614.6827, 454.1967, 680.0145],
+            "60": [119.6622, 128.4608, 139.5304, 162.2530, 177.1854, 225.1098, 251.2140, 296.0676, 242.8814, 191.1843, 267.1247]
+        },
+        "mod_mean": {
+            "250":[1.1],
+            "500": [462.7152, 1470.8407, 282.5445, 437.1656, 1615.3417, 1256.1718, 732.4786]
+        },
+        "mod_std": {
+            "250":[1.1],
+            "500": [112.8232, 228.2582, 76.8198, 96.0663, 241.4973, 205.7800, 146.8115]
+        }
+    }
+
+}    
