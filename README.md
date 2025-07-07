@@ -30,7 +30,7 @@ The following state-of-the-art Super-Resolution models are implemented and evalu
 ![image](https://github.com/user-attachments/assets/d2e33262-a516-45a9-8d8d-ae33f9b00134)
 
 
-- **Dataset**: The FLOGA dataset pairing MODIS and Sentinel-2 imagery, preprocessed and aligned
+- **Dataset**: The FLOGA dataset pairing MODIS and Sentinel-2 imagery, preprocessed and aligned. You can access the dataset [here](https://github.com/Orion-AI-Lab/FLOGA).
 - **Super-Resolution Scales**:
   - `x2`: Upsampling from 500m → 240m
   - `x4`: Upsampling from 500m → 120m
