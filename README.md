@@ -1,13 +1,14 @@
 # SuperRes-MODIS-Sen2
 
-**A Deep Learning Approach to Image Resolution Enhancement**  
-*Super-Resolution of Multispectral MODIS Imagery Utilizing Sentinel-2 Products*
+*A Deep Learning Approach to Image Resolution Enhancement: Super-Resolution of Multispectral MODIS Imagery Utilizing Sentinel-2 Products (Tselka I., 2024)*
 
 ---
 
 ## Overview
 
-This repository contains the full implementation of my Master’s Thesis **"A Deep Learning Approach to Image Resolution Enhancement: Super-Resolution of Multispectral MODIS Imagery Utilizing Sentinel-2 Products"** (Tselka, I. 2024), which explores the use of deep learning models to enhance the spatial resolution of Earth Observation (EO) imagery.
+This repository contains the full implementation of my Master’s Thesis, which explores the use of deep learning models to enhance the spatial resolution of Earth Observation (EO) imagery.  
+You can access the full thesis [here](https://dspace.lib.ntua.gr/xmlui/handle/123456789/60512).
+
 
 ---
 
